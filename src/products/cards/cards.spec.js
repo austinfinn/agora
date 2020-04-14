@@ -10,7 +10,7 @@ const helper = require('../_helper/helper')
 const cards = require('./cards')
 
 describe('Route: /v1/products/cards', () => {
-    it('should return a list of just Card products from all 4 banks', async () => {
+    it('should return a list of Card products from all 4 banks', async () => {
         const allProducts = [
             { 
                 brand: 'ANZ',
