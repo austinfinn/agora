@@ -5,9 +5,34 @@ const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
 const nr = require('../../utils/networkRequests/networkRequsts')
-const helper = require('./helper')
+const { getAllProducts } = require('./helper')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames
+
+const anzSavings = {
+    brand: "ANZ",
+    name: 'Fake Savings product',
+    productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
+    productId: '00000000-abcd-0000-efgh-000000000001' 
+}
+const cbaTermDeposit = {
+    brand: "CBA",
+    name: 'FAKE 2 year term deposit',
+    productCategory: 'TERM_DEPOSITS',
+    productId: '00000000-abcd-0000-efgh-000000000002' 
+}
+const nabMortgage = {
+    brand: "NAB",
+    name: 'Fake mortgage product',
+    productCategory: 'RESIDENTIAL_MORTGAGES',
+    productId: '00000000-abcd-0000-efgh-000000000003' 
+}
+const westpacCard = {
+    brand: "Westpac",
+    name: 'Fake Card product',
+    productCategory: 'CRED_AND_CHRG_CARDS',
+    productId: '00000000-abcd-0000-efgh-000000000004' 
+}
 
 describe('getAllProducts()', () => {
     it(`should return a single list of products from all 4 banks`, async () => {
@@ -15,53 +40,25 @@ describe('getAllProducts()', () => {
             {
                 status:200,
                 data: {
-                    data: {
-                        products:[{
-                            brand: "ANZ",
-                            name: 'Fake ANZ Savings product',
-                            productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
-                            productId: '00000000-abcd-0000-efgh-000000000001' 
-                        }]
-                    }
+                    data: { products:[ anzSavings ] }
                 }
             },
             {
                 status:200,
                 data: {
-                    data: {
-                        products:[{
-                            brand: "Westpac",
-                            name: 'Westpac Fake Mortgage product',
-                            productCategory: 'RESIDENTIAL_MORTGAGES',
-                            productId: '00000000-abcd-0000-efgh-000000000002' 
-                        }]
-                    }
+                    data: { products:[ cbaTermDeposit ] }
                 }
             },
             {
                 status:200,
                 data: {
-                    data: {
-                        products:[{
-                            brand: "NAB",
-                            name: 'Fake NAB person loan product',
-                            productCategory: 'PERS_LOANS',
-                            productId: '00000000-abcd-0000-efgh-000000000003' 
-                        }]
-                    }
+                    data: { products:[ nabMortgage] }
                 }
             },
             {
                 status:200,
                 data: {
-                    data: {
-                        products:[{
-                            brand: "CBA",
-                            name: 'FAKE Comm bank 2 year term deposit',
-                            productCategory: 'TERM_DEPOSITS',
-                            productId: '00000000-abcd-0000-efgh-000000000004' 
-                        }]
-                    }
+                    data: { products:[ westpacCard ] }
                 }
             }
         ]
@@ -73,30 +70,14 @@ describe('getAllProducts()', () => {
         stubRequest.onCall(2).resolves()
         stubRequest.onCall(3).resolves()
         
-        const result = await helper.getAllProducts()
+        const result = await getAllProducts()
 
         expect(result).to.deep.equal([
-        { 
-            brand: 'ANZ',
-            name: 'Fake ANZ Savings product',
-            productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
-            productId: '00000000-abcd-0000-efgh-000000000001' 
-        },{ 
-            brand: 'Westpac',
-            name: 'Westpac Fake Mortgage product',
-            productCategory: 'RESIDENTIAL_MORTGAGES',
-            productId: '00000000-abcd-0000-efgh-000000000002' 
-        },{
-            brand: "NAB",
-            name: 'Fake NAB person loan product',
-            productCategory: 'PERS_LOANS',
-            productId: '00000000-abcd-0000-efgh-000000000003' 
-        },{
-            brand: "CBA",
-            name: 'FAKE Comm bank 2 year term deposit',
-            productCategory: 'TERM_DEPOSITS',
-            productId: '00000000-abcd-0000-efgh-000000000004' 
-        }])
+            anzSavings,
+            cbaTermDeposit,
+            nabMortgage,
+            westpacCard
+            ])
 
         sinon.assert.callCount(stubRequest, 4)
         // check the correct URL values are passed to the 'getRequest' function
