@@ -18,9 +18,9 @@ function createListOfAllProducts(allResponses) {
     const listofAllProducts = []
 
     allResponses.map(response => {
-        // iterate through the response from all 4 banks to find the list of 'products'
+        // iterate through the 'products' array from all 4 Responses
         response.data.data.products.map(product => {
-            // add each product to the list
+            // add each individual product to the list
             listofAllProducts.push(product)
         })
     })
