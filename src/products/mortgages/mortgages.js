@@ -1,5 +1,5 @@
 const nr = require('../../utils/networkRequests/networkRequests')
-const mySql = require('../../../database/mysql/mysql')
+const mySql = require('../../../data/mysql/mysql')
 
 async function mortgages(req,res){
     try {
