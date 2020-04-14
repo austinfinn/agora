@@ -1,9 +1,8 @@
-const productsHelper = require('../_helper/helper')
-const helper = require('./helper')
+const helper = require('../_helper/helper')
 
 async function cards(req,res){
     try {
-        const allProducts = await productsHelper.getAllProducts()
+        const allProducts = await helper.getAllProducts()
         const cardProducts = helper.findCardProducts(allProducts)
 
         res.send(cardProducts)

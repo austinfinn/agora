@@ -1,6 +1,7 @@
 const nr = require('../../utils/networkRequests/networkRequsts')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames
+const { cards } = config.products.category
 
 async function getAllProducts() {
     let listOfPromises = []
@@ -27,4 +28,22 @@ function createListOfAllProducts(allResponses) {
     return listofAllProducts
 }
 
-module.exports = { getAllProducts }
+function findCardProducts(allProducts){
+    const cardProducts = []
+
+    allProducts.map(product => {
+        if(product.productCategory.toUpperCase() == cards.toUpperCase()){
+            cardProducts.push({
+                bank: product.brand,
+                name: product.name
+            })
+        }
+    })
+
+    return {
+        recordsReturned: cardProducts.length,
+        data: cardProducts
+    }
+}
+
+module.exports = { getAllProducts, findCardProducts }
