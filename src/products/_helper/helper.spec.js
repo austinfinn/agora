@@ -5,7 +5,7 @@ const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
 const nr = require('../../utils/networkRequests/networkRequsts')
-const { getAllProducts } = require('./helper')
+const { getAllProducts, findCardProducts } = require('./helper')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames
 
@@ -89,5 +89,26 @@ describe('getAllProducts()', () => {
 
         // clean up your tests once finished
         sinon.restore();
+    })
+})
+
+describe('findCardProducts()', () => {
+    it(`should filter out all products except for Card products`, () => {
+        const allProducts = [
+            anzSavings,
+            cbaTermDeposit,
+            nabMortgage,
+            westpacCard
+        ]
+
+        const result = findCardProducts(allProducts)  
+
+        expect(result).to.deep.equal({
+            recordsReturned: 1,
+            data: [{
+                "bank": "Westpac",
+                "name": "Fake Card product"
+            }]
+        })
     })
 })
