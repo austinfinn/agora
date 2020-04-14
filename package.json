@@ -4,14 +4,15 @@
   "description": "Bring all your data and information sources to one place!",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Austin Finn",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
-    "express": "4.17.1"
+    "axios": "0.19.2",
+    "express": "4.17.1",
+    "mysql": "2.18.1"
   },
   "devDependencies": {
     "nodemon": "2.0.3"
