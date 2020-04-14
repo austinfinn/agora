@@ -4,7 +4,7 @@ const sinon = require('sinon')
 const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
-const nr = require('../../utils/networkRequests/networkRequsts')
+const nr = require('../../utils/networkRequests/networkRequests')
 const { getAllProducts, findCardProducts } = require('./helper')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames

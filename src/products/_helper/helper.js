@@ -1,4 +1,4 @@
-const nr = require('../../utils/networkRequests/networkRequsts')
+const nr = require('../../utils/networkRequests/networkRequests')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames
 const { cards } = config.products.category
