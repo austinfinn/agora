@@ -20,7 +20,7 @@ function createListOfAllProducts(allResponses) {
 
     allResponses.map(response => {
         // iterate through the 'products' array from all 4 Responses
-        response.data.data.products.map(product => {
+        response.data.products.map(product => {
             // add each individual product to the list
             listofAllProducts.push(product)
         })

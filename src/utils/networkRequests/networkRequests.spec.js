@@ -9,8 +9,9 @@ const nr = require('./networkRequests')
 
 describe('getRequest()', () => {
     it(`should check the details of Request`, async () => {
+        const result = { data:"fake data" }
         const inputUrl='https://api.fake.com/path/for/testing'
-        const stubAxiosGetRequest = sinon.stub(axios.default,'get')
+        const stubAxiosGetRequest = sinon.stub(axios.default,'get').returns(result)
 
         await nr.getRequest(inputUrl)
 

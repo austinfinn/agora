@@ -6,7 +6,8 @@ async function getRequest(url) {
             'x-v': '1' 
         }
     }
-    return await axios.get(url,options);   
+    const { data } = await axios.get(url,options)
+    return data
 }
 
 module.exports = { getRequest }

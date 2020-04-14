@@ -38,28 +38,13 @@ describe('getAllProducts()', () => {
     it(`should return a single list of products from all 4 banks`, async () => {
         const allResponses = [
             {
-                status:200,
-                data: {
-                    data: { products:[ anzSavings ] }
-                }
-            },
-            {
-                status:200,
-                data: {
-                    data: { products:[ cbaTermDeposit ] }
-                }
-            },
-            {
-                status:200,
-                data: {
-                    data: { products:[ nabMortgage] }
-                }
-            },
-            {
-                status:200,
-                data: {
-                    data: { products:[ westpacCard ] }
-                }
+                data: { products:[ anzSavings ] }
+            },{
+                data: { products:[ cbaTermDeposit ] }
+            },{
+                data: { products:[ nabMortgage] }
+            },{
+                data: { products:[ westpacCard ] }
             }
         ]
         const stubPromiseAll = sinon.stub(Promise,'all').resolves(allResponses)
