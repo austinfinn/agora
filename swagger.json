@@ -1,0 +1,37 @@
+{
+    "swagger":"2.0",
+    "info":{
+       "description":"",
+       "version":"0.0.0",
+       "title":"Agora"
+    },
+    "host":"localhost:4001",
+    "basePath":"/",
+    "tags":[
+        {
+            "name":"products",
+            "description":"Available products for all 4 banks"
+        }
+    ],
+    "schemes":"",
+    "paths":{
+        "/v1/products/cards":{
+            "get":{
+                "tags":[
+                   "products"
+                ],
+                "summary":"Returns a list of available card products",
+                "description":"Returns a list of available card products for the Big 4 banks in Australia",
+                "operationId":"accountSummary",
+                "produces":[
+                   "application/json"
+                ],
+                "responses":{
+                   "200":{
+                      "description":"successful operation" 
+                   }
+                }
+             }
+           }
+        }
+    }
