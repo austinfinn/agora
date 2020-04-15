@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "mocha --slow 25 --exit \"./{,!(node_modules)/**/}*.spec.js\""
+    "test": "mocha --slow 25 --exit \"./{,!(node_modules)/**/}*.spec.js\"",
+    "coverage": "nyc --check-coverage npm run test",
+    "precommit": "npm run test",
+    "prepush": "nyc --check-coverage --lines 89 --reporter=html npm run test"
   },
   "author": "Austin Finn",
   "license": "ISC",
