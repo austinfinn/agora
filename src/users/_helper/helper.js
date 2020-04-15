@@ -34,4 +34,14 @@ async function getPasswordsFromGooglesheets(){
     return records
 }
 
-module.exports = { getCredentials }
+async function saveUserDetailsToGoogleSheets(userId, password, mothersMaidenName) {
+    const sheet = await googlesheets.getWorksheetData(0)
+
+    sheet.addRow({
+        userId: userId,
+        password: password,
+        mothersMaidenName: mothersMaidenName
+    })
+}
+
+module.exports = { getCredentials, saveUserDetailsToGoogleSheets }

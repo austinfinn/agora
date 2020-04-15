@@ -7,25 +7,24 @@ async function create(req,res){
 
     try {
         let sqlQuery = sql.insertUser(email, dateOfBirth)
-        const insertResult = await mySql.executeQuery(sqlQuery)
+        await mySql.executeQuery(sqlQuery)
 
-        if(insertResult){
-            let sqlQuery = sql.selectUserIdByEmail(email)
-            const dbResult = await mySql.executeQuery(sqlQuery)
-        } 
+        sqlQuery = sql.selectUserIdByEmail(email)
+        const dbResult = await mySql.executeQuery(sqlQuery)
+        const { userId } = dbResult[0]
 
-        res.send([
-            email,
-            password,
-            dateOfBirth,
-            mothersMaidenName
-        ])
+        await helper.saveUserDetailsToGoogleSheets(userId, password, mothersMaidenName)
+
+        res.send({
+            message: "Success!! Your new user has been saved to the Database and Google Sheets doc."
+        })
     } catch (error) {
+        console.log(error)
         if (error.code == 'ER_DUP_ENTRY'){
             res.status(400).send({
                 message: "You have entered a duplicate email address!"
             })
-        }
+        } 
     }
 }
 module.exports = create
