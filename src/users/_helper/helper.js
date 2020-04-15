@@ -8,7 +8,7 @@ async function getLoginCredentials(dbUsers) {
         sheetsUsers.map(sheetUser => {
             // if both lists have the same user_id, then we have a match!
             if(dbUser.user_id == sheetUser.user_id){
-                // add each users login credentails to an array
+                // add each user's login credentails to an array
                 loginCredentials.push({
                     email: dbUser.email,
                     password: sheetUser.password
