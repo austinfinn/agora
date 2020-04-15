@@ -37,6 +37,39 @@
                 }
              }
            },
+           "/v1/users/create":{
+            "post":{
+                "tags":[
+                   "users"
+                ],
+                "summary":"Create a new user and save important/sensitive user details to a Google Sheets doc",
+                "description":"Saves password and mother's maiden name for newly created users to a Google Sheets doc. \n\n Technical Details: This inserts a new record to the db, then gets the user id for the new user and then saves that, along with the password and mother's maiden name to the Google Docs spreadsheet.",
+                "operationId":"create",
+                "produces":[
+                   "application/json"
+                ],
+                "parameters":[
+                  {
+                    "in":"body",
+                    "name":"create",
+                    "schema":{
+                       "type":"object",
+                       "example":{
+                          "email": "fake_001@yopmail.com",
+                          "password": "pass1234",
+                          "dateOfBirth": "1970-01-01",
+                          "motherMaidenName": "mammy"
+                        }
+                     }
+                  }
+                ],
+                "responses":{
+                   "200":{
+                      "description":"successful operation" 
+                   }
+                }
+             }
+           },
            "/v1/users/loginCredentials":{
             "get":{
                 "tags":[
