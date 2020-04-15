@@ -4,11 +4,12 @@ const sinon = require('sinon')
 const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
-const { getCredentials } = require('./helper')
+const { getCredentials, saveUserDetailsToGoogleSheets } = require('./helper')
 const googlesheets = require('../../../data/googlesheets/googlesheet')
 
 // create a fake functions to make testing/stubbing easier
 function getRows() {}
+function addRow() {}
 
 describe('getCredentials()', () => {
     const dbUsers = [ 
@@ -57,5 +58,23 @@ describe('getCredentials()', () => {
         sinon.assert.calledWith(stubWorksheetData, 0)
         sinon.assert.calledOnce(stubRows)
         sinon.restore()
+    })
+})
+
+describe('saveUserDetailsToGoogleSheets()', () => {
+    it(`should save the users details to the Google Sheets doc`, async () => {
+        const userId = "123456"
+        const password = "pass1234"
+        const mothersMaidenName = "dad"
+
+        const sheet = { addRow }
+        const stubWorksheetData = sinon.stub(googlesheets,'getWorksheetData').returns(sheet)
+        const stubAddRows = sinon.stub(sheet,'addRow')
+
+        await saveUserDetailsToGoogleSheets(userId, password, mothersMaidenName)
+
+        sinon.assert.calledOnce(stubWorksheetData)
+        sinon.assert.calledWith(stubWorksheetData, 0)
+        sinon.assert.calledOnce(stubAddRows)
     })
 })
