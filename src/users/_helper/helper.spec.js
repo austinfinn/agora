@@ -7,15 +7,16 @@ chai.use(sinonChai);
 const { getCredentials } = require('./helper')
 const googlesheets = require('../../../data/googlesheets/googlesheet')
 
+// create a fake functions to make testing/stubbing easier
+function getRows() {}
+
 describe('getCredentials()', () => {
     const dbUsers = [ 
         { user_id: 1, email: 'john@fake.com' },
         { user_id: 2, email: 'claire@fake.com' },
         { user_id: 3, email: 'thomas@fake.com' } 
     ]
-    // create a fake 'getRows' function so it's response can be stubbed
-    function getRows() {}
-
+    
     it(`should return login credentails when matching records are found in both the database and the Google sheets doc`, async () => {
         const sheetsUsers = [ 
             { userId: '2', password: 'abc123def' },
@@ -38,7 +39,7 @@ describe('getCredentials()', () => {
         sinon.restore()
     })
 
-    it(`should should return an empty array when there were 0 matching records`, async () => {
+    it(`should return an empty array when there were 0 matching records`, async () => {
         const sheetsUsers = [ 
             { userId: '5', password: 'myFakePassword' },
             { userId: '6', password: 'abcde12345' }
