@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "0.19.2",
     "express": "4.17.1",
+    "google-spreadsheet": "3.0.11",
     "mysql": "2.18.1",
     "swagger-ui-express": "^4.1.4"
   },
