@@ -6,9 +6,13 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "mocha --slow 25 --exit \"./{,!(node_modules)/**/}*.spec.js\"",
-    "coverage": "nyc --check-coverage npm run test",
-    "precommit": "npm run test",
-    "prepush": "nyc --check-coverage --lines 89 --reporter=html npm run test"
+    "coverage": "nyc --check-coverage npm run test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test",
+      "pre-push": "nyc --check-coverage --lines 90 --reporter=html npm run test"
+    }
   },
   "author": "Austin Finn",
   "license": "ISC",
@@ -23,9 +27,10 @@
   "devDependencies": {
     "chai": "4.2.0",
     "eslint": "^6.8.0",
-    "nyc": "^15.0.1",
+    "husky": "^4.2.5",
     "mocha": "^7.1.1",
     "nodemon": "2.0.3",
+    "nyc": "15.0.1",
     "sinon": "9.0.2",
     "sinon-chai": "3.5.0",
     "sinon-express-mock": "^2.2.1"
