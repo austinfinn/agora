@@ -1,4 +1,8 @@
 # Dependency directories
 node_modules
 
+# Code coverage directories
+.nyc_output
+coverage
+
 .env
