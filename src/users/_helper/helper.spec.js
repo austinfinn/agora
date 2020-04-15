@@ -18,8 +18,8 @@ describe('getCredentials()', () => {
 
     it(`should return login credentails when matching records are found in both the database and the Google sheets doc`, async () => {
         const sheetsUsers = [ 
-            { user_id: '2', password: 'abc123def' },
-            { user_id: '4', password: '000xyz' }
+            { userId: '2', password: 'abc123def' },
+            { userId: '4', password: '000xyz' }
         ]
         const sheet = { getRows }
         const stubWorksheetData = sinon.stub(googlesheets,'getWorksheetData').returns(sheet)
@@ -40,8 +40,8 @@ describe('getCredentials()', () => {
 
     it(`should should return an empty array when there were 0 matching records`, async () => {
         const sheetsUsers = [ 
-            { user_id: '5', password: 'myFakePassword' },
-            { user_id: '6', password: 'abcde12345' }
+            { userId: '5', password: 'myFakePassword' },
+            { userId: '6', password: 'abcde12345' }
         ]
 
         const sheet = { getRows }

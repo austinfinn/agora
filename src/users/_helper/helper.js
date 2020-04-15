@@ -7,7 +7,7 @@ async function getCredentials(dbUsers) {
     dbUsers.map(dbUser => {
         sheetsUsers.map(sheetUser => {
             // if both lists have the same user_id, then we have a match!
-            if(dbUser.user_id == sheetUser.user_id){
+            if(dbUser.user_id == sheetUser.userId){
                 // add each user's login credentails to an array
                 credentials.push({
                     email: dbUser.email,
@@ -27,7 +27,7 @@ async function getPasswordsFromGooglesheets(){
     rows.map(row => {
         // add each user/password to an array
         records.push({
-            user_id: row.user_id,
+            userId: row.userId,
             password: row.password
         })
     })
