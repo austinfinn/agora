@@ -9,6 +9,11 @@ async function create(req,res){
         let sqlQuery = sql.insertUser(email, dateOfBirth)
         const insertResult = await mySql.executeQuery(sqlQuery)
 
+        if(insertResult){
+            let sqlQuery = sql.selectUserIdByEmail(email)
+            const dbResult = await mySql.executeQuery(sqlQuery)
+        } 
+
         res.send([
             email,
             password,
