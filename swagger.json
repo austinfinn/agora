@@ -11,7 +11,11 @@
         {
             "name":"products",
             "description":"Available products for all 4 banks"
-        }
+        },
+        {
+         "name":"users",
+         "description":"Useful endpoints that help find user passwords, answer to security quesitons, etc."
+     }
     ],
     "schemes":"",
     "paths":{
@@ -22,7 +26,25 @@
                 ],
                 "summary":"Returns a list of available card products",
                 "description":"Returns a list of available card products for the Big 4 banks in Australia",
-                "operationId":"accountSummary",
+                "operationId":"cards",
+                "produces":[
+                   "application/json"
+                ],
+                "responses":{
+                   "200":{
+                      "description":"successful operation" 
+                   }
+                }
+             }
+           },
+           "/v1/users/loginCredentials":{
+            "get":{
+                "tags":[
+                   "users"
+                ],
+                "summary":"Returns a list of login credentails for test accounts",
+                "description":"Returns a list of emails and passwords for all test accounts",
+                "operationId":"loginCredentials",
                 "produces":[
                    "application/json"
                 ],
