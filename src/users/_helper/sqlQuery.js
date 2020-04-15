@@ -3,4 +3,12 @@ function getUserEmailsQuery(params) {
             FROM users;`
 }
 
-module.exports = { getUserEmailsQuery }
+function insertUser(email, dateOfBirth){
+    return `INSERT INTO users (email, date_of_birth)
+            VALUES('${email}','${dateOfBirth}');`
+}
+
+module.exports = { 
+    getUserEmailsQuery, 
+    insertUser
+}

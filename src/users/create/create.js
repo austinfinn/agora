@@ -6,6 +6,9 @@ async function create(req,res){
     const { email, password, dateOfBirth, mothersMaidenName } = req.body
 
     try {
+        let sqlQuery = sql.insertUser(email, dateOfBirth)
+        const insertResult = await mySql.executeQuery(sqlQuery)
+
         res.send([
             email,
             password,
@@ -13,7 +16,11 @@ async function create(req,res){
             mothersMaidenName
         ])
     } catch (error) {
-        console.log(error)
+        if (error.code == 'ER_DUP_ENTRY'){
+            res.status(400).send({
+                message: "You have entered a duplicate email address!"
+            })
+        }
     }
 }
 module.exports = create
