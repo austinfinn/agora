@@ -1,4 +1,4 @@
-const swaggerDocument = require('../../../swagger.json')
+const swaggerDocument = require('./swagger.json')
 const appPackage = require('../../../package.json')
 
 function customizeSwaggerPage(req, res, next) {
