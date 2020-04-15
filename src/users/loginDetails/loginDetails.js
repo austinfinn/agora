@@ -1,13 +1,15 @@
 const mySql = require('../../../data/mysql/mysql')
+const helper = require('../_helper/helper')
+const { getUserEmailsQuery } = require('../_helper/sqlQuery')
 
 async function loginDetails(req,res){
     try {
-        const sqlQuery = `SELECT user_id, email, date_of_birth FROM users`
-        const dbResult = await mySql.executeQuery(sqlQuery)
+        const sqlQuery = getUserEmailsQuery()
+        const userDetails = await mySql.executeQuery(sqlQuery)
 
-        res.send({
-            message: dbResult
-        })
+        const loginCredentials = await helper.getLoginCredentials(userDetails)
+
+        res.send(loginCredentials)
     } catch (error) {
         console.log(error)
     }
