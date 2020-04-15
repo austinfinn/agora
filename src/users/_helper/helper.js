@@ -1,7 +1,7 @@
 const googlesheets = require('../../../data/googlesheets/googlesheet')
 
-async function getLoginCredentials(dbUsers) {
-    const loginCredentials = []
+async function getCredentials(dbUsers) {
+    const credentials = []
     const sheetsUsers = await getPasswordsFromGooglesheets()
  
     dbUsers.map(dbUser => {
@@ -9,14 +9,14 @@ async function getLoginCredentials(dbUsers) {
             // if both lists have the same user_id, then we have a match!
             if(dbUser.user_id == sheetUser.user_id){
                 // add each user's login credentails to an array
-                loginCredentials.push({
+                credentials.push({
                     email: dbUser.email,
                     password: sheetUser.password
                 })
             }
         })
     })
-    return loginCredentials
+    return credentials
 }
 
 async function getPasswordsFromGooglesheets(){
@@ -34,4 +34,4 @@ async function getPasswordsFromGooglesheets(){
     return records
 }
 
-module.exports = { getLoginCredentials }
+module.exports = { getCredentials }

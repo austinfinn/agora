@@ -9,7 +9,7 @@ const expect = chai.expect
 const mySql = require('../../../data/mysql/mysql')
 const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
-const loginDetails = require('./loginDetails')
+const loginCredentials = require('./loginCredentials')
 
 describe('Route: /v1/users/loginCredentials', () => {
     it('should return a list of login credentials', async () => {
@@ -17,7 +17,7 @@ describe('Route: /v1/users/loginCredentials', () => {
             { user_id: 1, email: 'john@fake.com' },
             { user_id: 2, email: 'claire@fake.com' }
         ]
-        const loginCredentials = [
+        const credentials = [
             {
                 email: "john@fake.com",
                 password: "fakePass1"
@@ -29,19 +29,19 @@ describe('Route: /v1/users/loginCredentials', () => {
 
         const spySqlQuery = sinon.spy(sql,'getUserEmailsQuery')
         const stubMySql = sinon.stub(mySql,'executeQuery').returns(dbUsers)
-        const stubGetLoginCredentials = sinon.stub(helper,'getLoginCredentials').returns(loginCredentials)
+        const stubGetCredentials = sinon.stub(helper,'getCredentials').returns(credentials)
 
         const req = mockReq()
         const res = mockRes()
 
-        await loginDetails(req, res)
+        await loginCredentials(req, res)
 
-        expect(res.send).to.be.calledWithExactly(loginCredentials)
+        expect(res.send).to.be.calledWithExactly(credentials)
 
         sinon.assert.calledOnce(spySqlQuery)
         sinon.assert.calledOnce(stubMySql)
-        sinon.assert.calledOnce(stubGetLoginCredentials)
-        sinon.assert.calledWith(stubGetLoginCredentials, dbUsers)
+        sinon.assert.calledOnce(stubGetCredentials)
+        sinon.assert.calledWith(stubGetCredentials, dbUsers)
         sinon.restore()
     })
 })

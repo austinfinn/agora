@@ -4,10 +4,10 @@ const sinon = require('sinon')
 const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
-const { getLoginCredentials } = require('./helper')
+const { getCredentials } = require('./helper')
 const googlesheets = require('../../../data/googlesheets/googlesheet')
 
-describe('getLoginCredentials()', () => {
+describe('getCredentials()', () => {
     const dbUsers = [ 
         { user_id: 1, email: 'john@fake.com' },
         { user_id: 2, email: 'claire@fake.com' },
@@ -25,7 +25,7 @@ describe('getLoginCredentials()', () => {
         const stubWorksheetData = sinon.stub(googlesheets,'getWorksheetData').returns(sheet)
         const stubRows = sinon.stub(sheet,'getRows').returns(sheetsUsers)
 
-        const result = await getLoginCredentials(dbUsers)
+        const result = await getCredentials(dbUsers)
 
         expect(result).to.deep.equal([{
             email: 'claire@fake.com',
@@ -48,7 +48,7 @@ describe('getLoginCredentials()', () => {
         const stubWorksheetData = sinon.stub(googlesheets,'getWorksheetData').returns(sheet)
         const stubRows = sinon.stub(sheet,'getRows').returns(sheetsUsers)
 
-        const result = await getLoginCredentials(dbUsers)
+        const result = await getCredentials(dbUsers)
 
         expect(result).to.deep.equal([])
 
