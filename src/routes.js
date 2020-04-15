@@ -15,6 +15,9 @@ router.get('/v1/users/loginCredentials', require('./users/loginCredentials/login
 router.post('/v1/users/create', jsonParser, require('./users/create/create'))
 
 // Swagger route
-router.use('/v1/docs', require('./utils/swagger/routeHandler'), swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+let swaggerOptions = {
+    customCssUrl: `/public/swaggerCustomCss.css`
+}
+router.use('/v1/docs', require('./utils/swagger/routeHandler'), swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 
 module.exports = router
