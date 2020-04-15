@@ -2,7 +2,7 @@ const router = require('express').Router()
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./utils/swagger/routeHandler');
+const swaggerDocument = require('./utils/swagger/customizePage');
 
 router.use(bodyParser.json());
 
@@ -18,6 +18,6 @@ router.post('/v1/users/create', jsonParser, require('./users/create/create'))
 let swaggerOptions = {
     customCssUrl: `/public/swaggerCustomCss.css`
 }
-router.use('/v1/docs', require('./utils/swagger/routeHandler'), swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
+router.use('/v1/docs', require('./utils/swagger/customizePage'), swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 
 module.exports = router
