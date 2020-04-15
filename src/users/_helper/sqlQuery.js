@@ -9,11 +9,12 @@ function insertUser(email, dateOfBirth){
 }
 
 function selectUserIdByEmail(email) {
-    return `SELECT user_id 
+    return `SELECT user_id as userId
             FROM users
             WHERE email='${email}';`
 }
 module.exports = { 
     getUserEmailsQuery, 
+    selectUserIdByEmail,
     insertUser
 }
