@@ -2,7 +2,13 @@
 //Middleware Function to Check Cache
 function checkCache(req, res, next){
     const redisClient = req.app.locals.redis
+    
+    const { flush } = req.query
     const key = req.path
+
+    if(flush && flush.toUpperCase() == 'TRUE'){
+        redisClient.del(key)
+    }
 
     redisClient.get(key, (err, data) => {
         if (err) {
