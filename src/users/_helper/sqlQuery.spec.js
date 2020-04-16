@@ -1,6 +1,4 @@
 const expect  = require('chai').expect;
-const chai = require('chai')
-
 const sql = require('./sqlQuery')
 
 describe('Users SQL queries', () => {
