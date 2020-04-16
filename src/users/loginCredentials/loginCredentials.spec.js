@@ -14,7 +14,7 @@ const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
 const loginCredentials = require('./loginCredentials')
 const config = require('../../config')
-const { cachingTime } = config.users.loginCredentials
+const { cacheExpirationTime } = config.users.loginCredentials
 
 describe('Route: /v1/users/loginCredentials', () => {
     it('should return a list of login credentials and save response to Redis', async () => {
@@ -57,7 +57,7 @@ describe('Route: /v1/users/loginCredentials', () => {
         sinon.assert.calledOnce(stubGetCredentials)
         sinon.assert.calledWith(stubGetCredentials, dbUsers)
         sinon.assert.calledOnce(stubRedisSetex)
-        sinon.assert.alwaysCalledWith(stubRedisSetex, request.path, cachingTime)
+        sinon.assert.alwaysCalledWith(stubRedisSetex, request.path, cacheExpirationTime)
         sinon.restore()
     })
 })
