@@ -57,7 +57,7 @@ describe('Route: /v1/users/loginCredentials', () => {
         sinon.assert.calledOnce(stubGetCredentials)
         sinon.assert.calledWith(stubGetCredentials, dbUsers)
         sinon.assert.calledOnce(stubRedisSetex)
-        sinon.assert.alwaysCalledWith(stubRedisSetex, request.path, cacheExpirationTime)
+        sinon.assert.alwaysCalledWithExactly(stubRedisSetex, request.path, cacheExpirationTime, JSON.stringify(credentials))
         sinon.restore()
     })
 })
