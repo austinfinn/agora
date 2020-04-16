@@ -62,7 +62,7 @@ describe('getAllProducts()', () => {
             cbaTermDeposit,
             nabMortgage,
             westpacCard
-            ])
+        ])
 
         sinon.assert.callCount(stubRequest, 4)
         // check the correct URL values are passed to the 'getRequest' function
