@@ -1,6 +1,7 @@
 const mySql = require('../../../data/mysql/mysql')
 const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
+const eh = require('../../utils/errorsHandler/errorsHanlder')
 const config = require('../../config')
 const { cacheExpirationTime } = config.users.loginCredentials
 
@@ -19,7 +20,8 @@ async function loginCredentials(req,res){
 
         res.send(loginCredentials)
     } catch (error) {
-        console.log(error)
+        const response = eh.errorsHandler(error) 
+        res.status(response.statusCode).send(response.body)
     }
 }
 module.exports = loginCredentials

@@ -13,6 +13,7 @@ const mySql = require('../../../data/mysql/mysql')
 const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
 const loginCredentials = require('./loginCredentials')
+const eh = require('../../utils/errorsHandler/errorsHanlder')
 const config = require('../../config')
 const { cacheExpirationTime } = config.users.loginCredentials
 
@@ -58,6 +59,32 @@ describe('Route: /v1/users/loginCredentials', () => {
         sinon.assert.calledWith(stubGetCredentials, dbUsers)
         sinon.assert.calledOnce(stubRedisSetex)
         sinon.assert.alwaysCalledWithExactly(stubRedisSetex, request.path, cacheExpirationTime, JSON.stringify(credentials))
+        sinon.restore()
+    })
+
+    it('should display an meaningful error when a downstream/underlying network request fails', async () => {
+        const err = {
+            response:{
+                status: 502,
+                config:{
+                    url: 'https://fake.bank.domain/cds-au/v0/banking/products',
+                    method: 'get',
+                    headers: { Accept: 'application/json, text/plain, */*' }
+                },
+                data:{ message:"Something bad happend downstream!"}
+            }
+        }
+
+        const req = mockReq(request)
+        const res = mockRes()
+
+        const spyErrorsHandler = sinon.spy(eh,'errorsHandler')
+        sinon.stub(mySql,'executeQuery').throws(err)
+        
+        await loginCredentials(req, res)
+
+        sinon.assert.calledOnce(spyErrorsHandler)
+        sinon.assert.calledWith(spyErrorsHandler,err)
         sinon.restore()
     })
 })
