@@ -29,10 +29,13 @@ describe('getCredentials()', () => {
 
         const result = await getCredentials(dbUsers)
 
-        expect(result).to.deep.equal([{
-            email: 'claire@fake.com',
-            password: 'abc123def'
-        }])
+        expect(result).to.deep.equal({
+            recordsReturned: 1,
+            data:[{
+                email: 'claire@fake.com',
+                password: 'abc123def'
+            }]
+        })
 
         sinon.assert.calledOnce(stubWorksheetData)
         sinon.assert.calledWith(stubWorksheetData, 0)
@@ -52,7 +55,10 @@ describe('getCredentials()', () => {
 
         const result = await getCredentials(dbUsers)
 
-        expect(result).to.deep.equal([])
+        expect(result).to.deep.equal({
+            recordsReturned: 0,
+            data:[]
+        })
 
         sinon.assert.calledOnce(stubWorksheetData)
         sinon.assert.calledWith(stubWorksheetData, 0)

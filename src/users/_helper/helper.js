@@ -16,7 +16,10 @@ async function getCredentials(dbUsers) {
             }
         })
     })
-    return credentials
+    return {
+        recordsReturned: credentials.length,
+        data: credentials
+    }
 }
 
 async function getPasswordsFromGooglesheets(){
