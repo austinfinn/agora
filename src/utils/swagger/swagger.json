@@ -84,6 +84,23 @@
                 "produces":[
                    "application/json"
                 ],
+                "parameters":[
+                  {
+                     "in":"query",
+                     "name":"flush",
+                     "description":"Clear Redis cache",
+                     "required": false,
+                     "type": "array",
+                     "items": {
+                        "type": "string",
+                        "enum": [
+                              "true",
+                              "false"
+                              ],
+                        "default": "QPCC"
+                     }
+                  }
+                ],
                 "responses":{
                    "200":{
                       "description":"successful operation" 
