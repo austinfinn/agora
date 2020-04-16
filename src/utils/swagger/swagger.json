@@ -17,7 +17,10 @@
          "description":"Useful endpoints that help find user passwords, answer to security quesitons, etc."
      }
     ],
-    "schemes":"",
+    "schemes":[
+       "http",
+       "https"
+   ],
     "paths":{
         "/v1/products/cards":{
             "get":{
