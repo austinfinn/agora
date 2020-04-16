@@ -1,6 +1,7 @@
 const mySql = require('../../../data/mysql/mysql')
 const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
+const eh = require('../../utils/errorsHandler/errorsHandler')
 
 async function create(req,res){
     const { email, password, dateOfBirth, mothersMaidenName } = req.body
@@ -22,12 +23,14 @@ async function create(req,res){
             message: "Success!! Your new user has been saved to the Database and Google Sheets doc."
         })
     } catch (error) {
-        console.log(error)
         if (error.code == 'ER_DUP_ENTRY'){
             res.status(400).send({
                 message: "You have entered a duplicate email address!"
             })
-        } 
+        } else {
+            const response = eh.errorsHandler(error) 
+            res.status(response.statusCode).send(response.body)
+        }
     }
 }
 module.exports = create
