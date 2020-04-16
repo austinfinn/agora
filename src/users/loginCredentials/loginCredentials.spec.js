@@ -40,7 +40,7 @@ describe('Route: /v1/users/loginCredentials', () => {
             }
         ]
 
-        const spySqlQuery = sinon.spy(sql,'getUserEmailsQuery')
+        const spySqlQuery = sinon.spy(sql,'selectEmailAndUserId')
         const stubMySql = sinon.stub(mySql,'executeQuery').returns(dbUsers)
         const stubGetCredentials = sinon.stub(helper,'getCredentials').returns(credentials)
         const stubRedisSetex = sinon.stub(redisClient,'setex')

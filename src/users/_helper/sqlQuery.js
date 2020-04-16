@@ -1,4 +1,4 @@
-function getUserEmailsQuery(params) {
+function selectEmailAndUserId(params) {
     return `SELECT user_id, email 
             FROM users;`
 }
@@ -14,7 +14,7 @@ function selectUserIdByEmail(email) {
             WHERE email='${email}';`
 }
 module.exports = { 
-    getUserEmailsQuery, 
+    selectEmailAndUserId, 
     selectUserIdByEmail,
     insertUser
 }

@@ -9,7 +9,7 @@ async function loginCredentials(req,res){
     const key = req.path
 
     try {
-        const sqlQuery = sql.getUserEmailsQuery()
+        const sqlQuery = sql.selectEmailAndUserId()
         const dbUsers = await mySql.executeQuery(sqlQuery)
 
         const loginCredentials = await helper.getCredentials(dbUsers)

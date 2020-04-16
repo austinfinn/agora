@@ -5,8 +5,8 @@ const sql = require('./sqlQuery')
 
 describe('Users SQL queries', () => {
     const email = "fake@email.com"
-    it(`should return the correct query for getUserEmailsQuery()`, () => {
-        const resultWithExtraSpaces = sql.getUserEmailsQuery()
+    it(`should return the correct query for selectEmailAndUserId()`, () => {
+        const resultWithExtraSpaces = sql.selectEmailAndUserId()
         const result = resultWithExtraSpaces.replace(/\s\s+/g, ' ')
 
         expect(result).to.contain(`SELECT user_id, email FROM users;`)
