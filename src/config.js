@@ -16,7 +16,7 @@ module.exports = {
     },
     users:{
         loginCredentials:{
-            cachingTime: 15
+            cachingTime: 60
         }
     }
 }
