@@ -31,7 +31,7 @@ describe('errorsHandler() - network request errors', function(){
         done()
     })
 
-    it('should return a generic network request error', function(done){
+    it('should return a meaningful error when downstream requests return 403 status codes', function(done){
         const err = {
             response:{
                 status: 403,
@@ -55,6 +55,40 @@ describe('errorsHandler() - network request errors', function(){
                     resposeBody: err.response.data
                 },
                 details: err.response.config
+            }
+        })
+        done()
+    })
+})
+
+describe('errorsHandler() - database errors', function(){
+    it('should return a generic db error', function(done){
+        const err = {
+            code: 'FAKE_ERROR_CODE',
+            sqlMessage: 'fake db message'
+        }
+
+        const result = errorsHandler(err)
+        expect(result).to.deep.equal({
+            statusCode: 500,
+            body:{
+                message:"An unhandled error occured. Feel free to create a PR to fix it!"
+            }
+        })
+        done()
+    })
+
+    it('should return a meaningful error message when incorrect db credentials are used', function(done){
+        const err = {
+            code: 'ER_ACCESS_DENIED_ERROR',
+            sqlMessage: 'Access denied for user'
+        }
+
+        const result = errorsHandler(err)
+        expect(result).to.deep.equal({
+            statusCode: 500,
+            body:{
+                message:"Looks like the database credentials are incorrect."
             }
         })
         done()
