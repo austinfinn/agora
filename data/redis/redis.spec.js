@@ -42,7 +42,7 @@ describe('Redis: checkCache()', ()=> {
         sinon.restore()
     })
 
-    it(`should clear cache when the 'flush' query string is set to 'TRUE'`, function(){
+    it(`should flush cache when the 'flush' value is set to 'TRUE'`, function(){
         const accountStatus = "fakeStatus"
         const request = {
             params:{
@@ -75,7 +75,7 @@ describe('Redis: checkCache()', ()=> {
         sinon.restore()
     })
 
-    it(`should not clear cache if the 'flush' query string value is not set to 'true' (a call is still made to Redis)`, function(){
+    it(`should not flush cache when the 'flush' value is set to something other than 'TRUE'`, function(){
         const accountStatus = "fakeStatus"
         const redisData = { message:"hello" }
         const request = {
@@ -83,7 +83,7 @@ describe('Redis: checkCache()', ()=> {
                 accountStatus: accountStatus
             },
             query:{ 
-                flush: "abc"
+                flush: "falsy"
             },
             path: `/qpc/account/${accountStatus}`,
             app: {
@@ -109,7 +109,7 @@ describe('Redis: checkCache()', ()=> {
         sinon.restore()
     })
 
-    it(`should ignore all query strings except 'flush' (a call is still made to Redis)`, function(){
+    it(`should ignore all query strings except 'flush'`, function(){
         const accountStatus = "fakeStatus"
         const redisData = { message:"hello" }
         const request = {
