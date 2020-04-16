@@ -40,7 +40,9 @@ async function getPasswordsFromGooglesheets(){
 async function saveUserDetailsToGoogleSheets(userId, password, mothersMaidenName) {
     const sheet = await googlesheets.getWorksheetData(0)
 
-    sheet.addRow({
+    // wait for new record to be successfully added to worksheet. If there is 
+    // an error from Google's APIs it will be surfaced to the user, via errorsHandler() function
+    await sheet.addRow({
         userId: userId,
         password: password,
         mothersMaidenName: mothersMaidenName
