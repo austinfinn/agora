@@ -8,7 +8,7 @@ const expect = chai.expect
 
 const helper = require('../_helper/helper')
 const cards = require('./cards')
-const eh = require('../../utils/errorsHandler/errorsHanlder')
+const eh = require('../../utils/errorsHandler/errorsHandler')
 
 describe('Route: /v1/products/cards', () => {
     it('should return a list of Card products from all 4 banks', async () => {

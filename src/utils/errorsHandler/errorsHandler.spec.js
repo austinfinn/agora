@@ -1,5 +1,5 @@
 const expect  = require('chai').expect;
-const { errorsHandler } = require('./errorsHanlder')
+const { errorsHandler } = require('./errorsHandler')
 
 describe('errorsHandler() - network request errors', function(){
     it('should return a generic network request error', function(done){

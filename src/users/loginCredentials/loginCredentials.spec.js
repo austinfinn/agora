@@ -13,7 +13,7 @@ const mySql = require('../../../data/mysql/mysql')
 const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
 const loginCredentials = require('./loginCredentials')
-const eh = require('../../utils/errorsHandler/errorsHanlder')
+const eh = require('../../utils/errorsHandler/errorsHandler')
 const config = require('../../config')
 const { cacheExpirationTime } = config.users.loginCredentials
 

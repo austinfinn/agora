@@ -1,5 +1,5 @@
 const helper = require('../_helper/helper')
-const eh = require('../../utils/errorsHandler/errorsHanlder')
+const eh = require('../../utils/errorsHandler/errorsHandler')
 
 async function cards(req,res){
     try {
