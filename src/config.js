@@ -13,5 +13,10 @@ module.exports = {
             mortgages:"RESIDENTIAL_MORTGAGES",
             fixedSavings:"TERM_DEPOSITS"
         }
+    },
+    users:{
+        loginCredentials:{
+            cachingTime: 15
+        }
     }
 }
