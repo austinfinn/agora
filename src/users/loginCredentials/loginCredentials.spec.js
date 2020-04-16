@@ -17,15 +17,15 @@ const config = require('../../config')
 const { cacheExpirationTime } = config.users.loginCredentials
 
 describe('Route: /v1/users/loginCredentials', () => {
-    it('should return a list of login credentials and save response to Redis', async () => {
-        const request = {
-            path:"/fake/path/for/testing",
-            app: {
-                locals:{
-                    redis: redisClient
-                }
+    const request = {
+        path:"/fake/path/for/testing",
+        app: {
+            locals:{
+                redis: redisClient
             }
         }
+    }
+    it('should return a list of login credentials and save response to Redis', async () => {   
         const dbUsers = [ 
             { user_id: 1, email: 'john@fake.com' },
             { user_id: 2, email: 'claire@fake.com' }
