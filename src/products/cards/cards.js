@@ -1,4 +1,5 @@
 const helper = require('../_helper/helper')
+const { errorHandler } = require('../../utils/errorsHandler/errorsHanlder')
 
 async function cards(req,res){
     try {
@@ -7,7 +8,8 @@ async function cards(req,res){
 
         res.send(cardProducts)
     } catch (error) {
-        console.log(error)
+        const response = errorHandler(error) 
+        res.status(response.statusCode).send(response.body)
     }
 }
 
