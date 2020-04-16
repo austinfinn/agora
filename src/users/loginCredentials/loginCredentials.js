@@ -14,7 +14,7 @@ async function loginCredentials(req,res){
 
         const loginCredentials = await helper.getCredentials(dbUsers)
 
-        // save details to Redis
+        // save response details to Redis
         redisClient.setex(key, cachingTime, JSON.stringify(loginCredentials))
 
         res.send(loginCredentials)

@@ -6,13 +6,26 @@ const { mockReq, mockRes } = require('sinon-express-mock');
 chai.use(sinonChai);
 const expect = chai.expect
 
+const redisMock = require("redis-mock")
+const redisClient = redisMock.createClient()
+
 const mySql = require('../../../data/mysql/mysql')
 const helper = require('../_helper/helper')
 const sql = require('../_helper/sqlQuery')
 const loginCredentials = require('./loginCredentials')
+const config = require('../../config')
+const { cachingTime } = config.users.loginCredentials
 
 describe('Route: /v1/users/loginCredentials', () => {
-    it('should return a list of login credentials', async () => {
+    it('should return a list of login credentials and save response to Redis', async () => {
+        const request = {
+            path:"/fake/path/for/testing",
+            app: {
+                locals:{
+                    redis: redisClient
+                }
+            }
+        }
         const dbUsers = [ 
             { user_id: 1, email: 'john@fake.com' },
             { user_id: 2, email: 'claire@fake.com' }
@@ -30,8 +43,9 @@ describe('Route: /v1/users/loginCredentials', () => {
         const spySqlQuery = sinon.spy(sql,'getUserEmailsQuery')
         const stubMySql = sinon.stub(mySql,'executeQuery').returns(dbUsers)
         const stubGetCredentials = sinon.stub(helper,'getCredentials').returns(credentials)
+        const stubRedisSetex = sinon.stub(redisClient,'setex')
 
-        const req = mockReq()
+        const req = mockReq(request)
         const res = mockRes()
 
         await loginCredentials(req, res)
@@ -42,6 +56,8 @@ describe('Route: /v1/users/loginCredentials', () => {
         sinon.assert.calledOnce(stubMySql)
         sinon.assert.calledOnce(stubGetCredentials)
         sinon.assert.calledWith(stubGetCredentials, dbUsers)
+        sinon.assert.calledOnce(stubRedisSetex)
+        sinon.assert.alwaysCalledWith(stubRedisSetex, request.path, cachingTime)
         sinon.restore()
     })
 })
