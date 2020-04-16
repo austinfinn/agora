@@ -8,6 +8,7 @@ const expect = chai.expect
 
 const helper = require('../_helper/helper')
 const cards = require('./cards')
+const eh = require('../../utils/errorsHandler/errorsHanlder')
 
 describe('Route: /v1/products/cards', () => {
     it('should return a list of Card products from all 4 banks', async () => {
@@ -55,4 +56,31 @@ describe('Route: /v1/products/cards', () => {
         sinon.assert.calledWith(spyHelper, allProducts)
         sinon.restore()
     })
+
+    it('should display an meaningful error when a downstream/underlying network request fails', async () => {
+        const err = {
+            response:{
+                status: 403,
+                config:{
+                    url: 'https://fake.bank.domain/cds-au/v0/banking/products',
+                    method: 'get',
+                    headers: { Accept: 'application/json, text/plain, */*' }
+                },
+                data:{ message:"This is just a made up error message!"}
+            }
+        }
+
+        const req = mockReq()
+        const res = mockRes()
+
+        const spyErrorsHandler = sinon.spy(eh,'errorsHandler')
+        sinon.stub(helper,'getAllProducts').throws(err)
+        
+        await cards(req, res)
+
+        sinon.assert.calledOnce(spyErrorsHandler)
+        sinon.assert.calledWith(spyErrorsHandler,err)
+        sinon.restore()
+    })
+
 })
