@@ -16,6 +16,10 @@ services:
     image: mysql:8.0.17
     container_name: agora_mysql
     restart: always
+    volumes:
+    # copy 'sql-scripts' directory to the container. All files in 'docker-entrypoint-initdb.d' 
+    # will be automatically processed (in alphabetical order). See https://hub.docker.com/_/mysql
+    - ./sql-scripts:/docker-entrypoint-initdb.d/
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: agora_db
