@@ -10,6 +10,7 @@ services:
       - mysql
     depends_on:
       - mysql
+      - redis
     environment:
       WAIT_HOSTS: mysql:3306
   mysql:
