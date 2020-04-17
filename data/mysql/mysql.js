@@ -5,8 +5,8 @@ const dbConn = mysql.createPool({
     connectionLimit: 5,
     host: 'localhost',
     database: 'agora_1',
-    user: 'root',
-    password:'password'
+    user: 'agora_user_1',
+    password:'pass1234'
 });
 
 dbConn.getConnection((err, connection) => {
