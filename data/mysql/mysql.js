@@ -4,7 +4,7 @@ var mysql = require('mysql');
 const dbConn = mysql.createPool({
     connectionLimit: 5,
     host: 'localhost',
-    database: 'agora_1',
+    database: 'agora_db',
     user: 'agora_user_1',
     password:'pass1234'
 });

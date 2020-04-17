@@ -1,4 +1,4 @@
-USE agora_1;
+USE agora_db;
 
 CREATE TABLE accounts(
    account_id INT NOT NULL AUTO_INCREMENT,
