@@ -2,7 +2,7 @@
 - Ensure you have the below tools installed on your machine 
         
         Docker 
-        node JS 10+
+        NodeJS 10+
 
 - Create a .env file in the root directory of this project with the following details
 
@@ -18,7 +18,7 @@
 
         docker ps
 
-- Now create the build your images
+- Now build the app (this may take a few minutes)
 
         docker-compose build
 
