@@ -4,15 +4,6 @@
         Docker 
         NodeJS 10+
 
-- Create a .env file in the root directory of this project with the following details
-
-        REDIS_HOST=redis://localhost:6379
-
-        DB_HOST=localhost
-        DB_DATABASE=agora_db
-        DB_USER=agora_user_1
-        DB_PASSWORD=pass1234 
-
 ## Docker Setup
 - Open your Terminal and check Docker is running
 
