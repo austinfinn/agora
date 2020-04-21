@@ -10,6 +10,7 @@ services:
       - db
       - cache
     environment:
+      - PORT=4002
       - REDIS_HOST=redis://cache:6379
       - DB_HOST=mysql
       - DB_DATABASE=agora_db
