@@ -10,7 +10,7 @@ services:
       - db
       - cache
     environment:
-      WAIT_HOSTS: db:3306
+      - WAIT_HOSTS=db:3306
   db:
     image: mysql:8.0.17
     container_name: agora_mysql
