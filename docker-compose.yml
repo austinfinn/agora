@@ -7,11 +7,11 @@ services:
     ports:
       - "4002:4001"
     depends_on:
-      - mysql
+      - db
       - cache
     environment:
-      WAIT_HOSTS: mysql:3306
-  mysql:
+      WAIT_HOSTS: db:3306
+  db:
     image: mysql:8.0.17
     container_name: agora_mysql
     restart: always
