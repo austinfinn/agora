@@ -6,8 +6,6 @@ services:
     container_name: agora_app
     ports:
       - "4002:4001"
-    links:
-      - mysql
     depends_on:
       - mysql
       - redis
