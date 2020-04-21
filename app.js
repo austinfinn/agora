@@ -2,14 +2,14 @@ const express = require('express')
 const redis = require('redis')
 const app = express()
 const port = 4001
-const redisHost = "redis://localhost:6379"
+require('dotenv').config()
 const routes = require('./src/routes')
 app.use(routes)
 
 app.use(`/public`, express.static('public'))
 
 const connectToRedis = () => {
-    const client = redis.createClient(redisHost)
+    const client = redis.createClient(process.env.REDIS_HOST)
 
     return new Promise((resolve, reject) => {
         client.on('connect', () => {
@@ -28,7 +28,7 @@ connectToRedis().then((client) => {
         
         console.log("")
         console.log(`Agora app running on http://localhost:${port}`)
-        console.log(`Redis is running on ${redisHost}`)
+        console.log(`Redis is running on ${process.env.REDIS_HOST}`)
         console.log("")
     });
 }, (error) => {
