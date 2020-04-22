@@ -58,7 +58,7 @@
                     "schema":{
                        "type":"object",
                        "example":{
-                          "email": "fake_001@yopmail.com",
+                          "email": "",
                           "password": "pass1234",
                           "dateOfBirth": "1970-01-01",
                           "mothersMaidenName": "mammy"

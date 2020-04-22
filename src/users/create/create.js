@@ -5,23 +5,28 @@ const eh = require('../../utils/errorsHandler/errorsHandler')
 
 async function create(req,res){
     const { email, password, dateOfBirth, mothersMaidenName } = req.body
+    let message = ""
 
     try {
-        // insert the new user into the db
-        let sqlQuery = sql.insertUser(email, dateOfBirth)
-        await mySql.executeQuery(sqlQuery)
+        if (email){
+            // insert the new user into the db
+            let sqlQuery = sql.insertUser(email, dateOfBirth)
+            await mySql.executeQuery(sqlQuery)
 
-        // get the 'user_id' for the newly create user
-        sqlQuery = sql.selectUserIdByEmail(email)
-        const dbResult = await mySql.executeQuery(sqlQuery)
-        const { userId } = dbResult[0]
+            // get the 'user_id' for the newly create user
+            sqlQuery = sql.selectUserIdByEmail(email)
+            const dbResult = await mySql.executeQuery(sqlQuery)
+            const { userId } = dbResult[0]
 
-        // save important login details for test accounts to the Google Sheets doc
-        await helper.saveUserDetailsToGoogleSheets(userId, password, mothersMaidenName)
+            // save important login details for test accounts to the Google Sheets doc
+            await helper.saveUserDetailsToGoogleSheets(userId, password, mothersMaidenName)
 
-        res.send({
-            message: "Success!! Your new user has been saved to the Database and Google Sheets doc."
-        })
+            message = { message: "Success!! Your new user has been saved to the Database and Google Sheets doc." }
+        } else {
+            message = { message: "The email value is blank. Please enter a unique email address"}
+        }
+        
+        res.send(message)
     } catch (error) {
         if (error.code == 'ER_DUP_ENTRY'){
             res.status(400).send({

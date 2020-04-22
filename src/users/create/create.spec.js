@@ -52,8 +52,16 @@ describe('Route: /v1/users/create', () => {
         const err = {
             code:"ER_DUP_ENTRY"
         }
-
-        const req = mockReq()
+        const request = {
+            body:{
+                email: "fake0001@email.com",
+                password: "123pass",
+                dateOfBirth: "1999-01-01",
+                mothersMaidenName: "smith"
+            }
+        }
+        
+        const req = mockReq(request)
         const res = mockRes()
 
         sinon.stub(mySql,'executeQuery').throws(err)
@@ -62,6 +70,26 @@ describe('Route: /v1/users/create', () => {
 
         expect(res.send).to.be.calledWithExactly({
             message: "You have entered a duplicate email address!"
+        })
+        sinon.restore()
+    })
+
+    it('should display an error if a customer leaves the email address value blank', async () => {
+        const request = {
+            body:{
+                email: "",
+                password: "123pass",
+                dateOfBirth: "1999-01-01",
+                mothersMaidenName: "smith"
+            }
+        }
+        const req = mockReq(request)
+        const res = mockRes()
+        
+        await create(req, res)
+
+        expect(res.send).to.be.calledWithExactly({
+            message: "The email value is blank. Please enter a unique email address"
         })
         sinon.restore()
     })
@@ -79,7 +107,16 @@ describe('Route: /v1/users/create', () => {
             }
         }
 
-        const req = mockReq()
+        const request = {
+            body:{
+                email: "fake0001@email.com",
+                password: "123pass",
+                dateOfBirth: "1999-01-01",
+                mothersMaidenName: "smith"
+            }
+        }
+        
+        const req = mockReq(request)
         const res = mockRes()
 
         const spyErrorsHandler = sinon.spy(eh,'errorsHandler')
