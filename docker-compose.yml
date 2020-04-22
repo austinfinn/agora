@@ -19,7 +19,7 @@ services:
       # wait until the MySQL db is ready before attempting to connect the Express app to it
       - WAIT_HOSTS=db:3306
   db:
-    image: mysql:8.0.17
+    image: mysql:5.7
     container_name: agora_mysql
     restart: always
     volumes:
