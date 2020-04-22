@@ -16,6 +16,9 @@ router.get('/v1/products/cards', require("./products/cards/cards"))
 router.get('/v1/users/loginCredentials', checkCache, require('./users/loginCredentials/loginCredentials'))
 router.post('/v1/users/create', jsonParser, require('./users/create/create'))
 
+// health
+router.get('/v1/health/openBankingApi/:bank', require('./health/openBankingApi/openBankingApi'))
+
 // Swagger route
 let swaggerOptions = {
     customCssUrl: `/public/swaggerCustomCss.css`
