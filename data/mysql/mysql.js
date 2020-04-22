@@ -24,6 +24,9 @@ dbConn.getConnection((err, connection) => {
         if(err.code === "PROTOCOL_SEQUENCE_TIMEOUT"){
             console.error('Database connection timed out.')
         }
+        if(err.code === "ETIMEDOUT"){
+            console.error('Connecting to the database has timed out')
+        }
     }
     if (connection) connection.release()
     return
