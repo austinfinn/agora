@@ -1,5 +1,8 @@
 USE agora_db;
 
+CREATE USER 'agora_user_1'@'%' IDENTIFIED BY 'pass1234';
+GRANT INSERT, SELECT ON *.* TO 'agora_user_1'@'%';
+
 CREATE TABLE accounts(
    account_id INT NOT NULL AUTO_INCREMENT,
    product_id INT,
@@ -19,11 +22,6 @@ VALUES('100','999','ACTIVE','134.32');
 
 INSERT INTO accounts (product_id, user_id, status, balance)
 VALUES('111','222','SUSPENDED','200');
-
-CREATE USER 'agora_user_1'@'localhost' IDENTIFIED BY 'pass1234';
-GRANT INSERT, SELECT ON *.* TO 'agora_user_1'@'localhost';
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-flush privileges;  
 
 CREATE TABLE users(
    user_id INT NOT NULL AUTO_INCREMENT,
