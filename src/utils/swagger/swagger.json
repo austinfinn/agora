@@ -15,7 +15,11 @@
         {
          "name":"users",
          "description":"Useful endpoints that help find user passwords, answer to security quesitons, etc."
-     }
+         },
+         {
+            "name":"health",
+            "description":"Check the health of the OpenBanking API endpoints for all 4 banks"
+        }
     ],
     "schemes":[
        "http",
@@ -107,6 +111,42 @@
                    }
                 }
              }
-           }
-        }
+           },
+           "/v1/health/openBankingApi/{bank}":{
+               "get":{
+                  "tags":[
+                     "health"
+                  ],
+                  "summary":"Check the status of a specific OpenBanking API endpoint",
+                  "description":"Check if the products list endpoint for all a banks is 'up' or 'down'",
+                  "operationId":"openBankingApi",
+                  "produces":[
+                     "application/json"
+                  ],
+                  "parameters":[
+                     {
+                        "name":"bank",
+                        "in": "path",
+                        "description": "Select a bank",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                           "type": "string",
+                           "enum": [
+                              "ANZ",
+                              "CBA",
+                              "NAB",
+                              "WESTPAC"
+                           ]
+                        }
+                     }
+                  ],
+                  "responses":{
+                     "200":{
+                        "description":"successful operation" 
+                     }
+               }
+            }
+         }
     }
+}
