@@ -10,22 +10,25 @@ async function getProducts(bank) {
     return nr.getRequest(url)
 }
 
-function findCardProducts(allProducts){
-    const cardProducts = []
+function filterForCards(allProducts){
+    const products = []
 
     allProducts.map(product => {
         if(product.productCategory.toUpperCase() == cards.toUpperCase()){
-            cardProducts.push({
+            let productsUrl = utils.getProductsUrl(product.brand)
+
+            products.push({
                 bank: product.brand,
-                name: product.name
+                name: product.name,
+                productDetailsUrl: productsUrl + "/" + product.productId
             })
         }
     })
 
     return {
-        recordsReturned: cardProducts.length,
-        data: cardProducts
+        recordsReturned: products.length,
+        data: products
     }
 }
 
-module.exports = { getProducts, findCardProducts }
+module.exports = { getProducts, filterForCards }

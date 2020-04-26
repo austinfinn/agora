@@ -8,7 +8,7 @@ async function cards(req,res){
         const response = await helper.getProducts(bank)
         const allProducts = response.data.data.products
 
-        const cardProducts = helper.findCardProducts(allProducts)
+        const cardProducts = helper.filterForCards(allProducts)
 
         res.send(cardProducts)
     } catch (error) {
