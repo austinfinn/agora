@@ -83,7 +83,7 @@ describe('Route: /v1/products/cards', () => {
         const res = mockRes()
 
         const spyErrorsHandler = sinon.spy(eh,'errorsHandler')
-        sinon.stub(helper,'getAllProducts').throws(err)
+        sinon.stub(helper,'getProducts').throws(err)
         
         await cards(req, res)
 
