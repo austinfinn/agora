@@ -5,7 +5,7 @@ const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
 const nr = require('../../utils/networkRequests/networkRequests')
-const { getAllProducts, findCardProducts } = require('./helper')
+const { getAllProducts, filterForCards } = require('./helper')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames
 
@@ -14,8 +14,6 @@ const allWestpacProducts = [
         brand: "Westpac",
         name: 'Fake Card product',
         productCategory: 'CRED_AND_CHRG_CARDS',
-        productId: '00000000-abcd-0000-efgh-000000000004' 
-    productId: '00000000-abcd-0000-efgh-000000000004' 
         productId: '00000000-abcd-0000-efgh-000000000004' 
     },{
         brand: "Westpac",
@@ -78,22 +76,16 @@ describe('getAllProducts()', () => {
     })
 })
 
-describe('findCardProducts()', () => {
-    it(`should filter out all products except for Card products`, () => {
-        const allProducts = [
-            anzSavings,
-            cbaTermDeposit,
-            nabMortgage,
-            westpacCard
-        ]
-
-        const result = findCardProducts(allProducts)  
+describe('filterForCards()', () => {
+    it(`should filter out all products except for Card products for a specific bank`, () => {
+        const result = filterForCards(allWestpacProducts)  
 
         expect(result).to.deep.equal({
             recordsReturned: 1,
             data: [{
                 "bank": "Westpac",
-                "name": "Fake Card product"
+                "name": "Fake Card product",
+                "productDetailsUrl":"https://digital-api.westpac.com.au/cds-au/v1/banking/products/00000000-abcd-0000-efgh-000000000004"
             }]
         })
     })
