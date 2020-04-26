@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 
 // products
 router.get('/v1/products/mortgages', require("./products/mortgages/mortgages"))
-router.get('/v1/products/cards', require("./products/cards/cards"))
+router.get('/v1/products/cards/:bank', require("./products/cards/cards"))
 
 // users
 router.get('/v1/users/loginCredentials', checkCache, require('./users/loginCredentials/loginCredentials'))

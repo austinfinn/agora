@@ -2,8 +2,12 @@ const helper = require('../_helper/helper')
 const eh = require('../../utils/errorsHandler/errorsHandler')
 
 async function cards(req,res){
+    const { bank } = req.params
+
     try {
-        const allProducts = await helper.getAllProducts()
+        const response = await helper.getProducts(bank)
+        const allProducts = response.data.data.products
+
         const cardProducts = helper.findCardProducts(allProducts)
 
         res.send(cardProducts)

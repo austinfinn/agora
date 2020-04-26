@@ -1,18 +1,13 @@
 const nr = require('../../utils/networkRequests/networkRequests')
 const config = require('../../config')
+const utils = require('../../utils/utils')
 const { anz, cba, nab, westpac } = config.products.hostNames
 const { cards } = config.products.category
 
-async function getAllProducts() {
-    let listOfPromises = []
-    listOfPromises.push(nr.getRequest(`${anz}/cds-au/v1/banking/products`))
-    listOfPromises.push(nr.getRequest(`${cba}/cds-au/v1/banking/products`))
-    listOfPromises.push(nr.getRequest(`${nab}/cds-au/v1/banking/products`))
-    listOfPromises.push(nr.getRequest(`${westpac}/cds-au/v1/banking/products`))
+async function getProducts(bank) {
+    const url = utils.getProductsUrl(bank)
 
-    const allResponses = await Promise.all(listOfPromises)
-
-    return createListOfAllProducts(allResponses)
+    return nr.getRequest(url)
 }
 
 function createListOfAllProducts(allResponses) {
@@ -46,4 +41,4 @@ function findCardProducts(allProducts){
     }
 }
 
-module.exports = { getAllProducts, findCardProducts }
+module.exports = { getProducts, findCardProducts }
