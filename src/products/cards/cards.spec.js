@@ -11,49 +11,58 @@ const cards = require('./cards')
 const eh = require('../../utils/errorsHandler/errorsHandler')
 
 describe('Route: /v1/products/cards', () => {
-    it('should return a list of Card products from all 4 banks', async () => {
-        const allProducts = [
-            { 
-                brand: 'ANZ',
-                name: 'Fake ANZ Savings product',
-                productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
-                productId: '00000000-abcd-0000-efgh-000000000001' 
-            },{ 
-                brand: 'Westpac',
-                name: 'Westpac Fake Credit Card product',
-                productCategory: 'CRED_AND_CHRG_CARDS',
-                productId: '00000000-abcd-0000-efgh-000000000002' 
-            },{
-                brand: "NAB",
-                name: 'Fake NAB person loan product',
-                productCategory: 'PERS_LOANS',
-                productId: '00000000-abcd-0000-efgh-000000000003' 
-            },{
-                brand: "CBA",
-                name: 'FAKE Comm bank 2 year term deposit',
-                productCategory: 'TERM_DEPOSITS',
-                productId: '00000000-abcd-0000-efgh-000000000004' 
-            }]
+    it('should return a all Card products from a specific bank', async () => {
+        const response = {
+            data:{ data: { products: [
+                { 
+                    brand: 'CBA',
+                    name: 'Fake CBA Savings product',
+                    productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
+                    productId: '00000000-abcd-0000-efgh-000000000001' 
+                },{ 
+                    brand: 'CBA',
+                    name: 'CBA Fake Credit Card product',
+                    productCategory: 'CRED_AND_CHRG_CARDS',
+                    productId: '00000000-abcd-0000-efgh-000000000002' 
+                },{
+                    brand: "CBA",
+                    name: 'Fake CBA person loan product',
+                    productCategory: 'PERS_LOANS',
+                    productId: '00000000-abcd-0000-efgh-000000000003' 
+                },{
+                    brand: "CBA",
+                    name: 'FAKE Comm bank 2 year term deposit',
+                    productCategory: 'TERM_DEPOSITS',
+                    productId: '00000000-abcd-0000-efgh-000000000004' 
+                }]}}
+        } 
+        const request = {
+            params:{
+                bank:"cba"
+            }
+        }
         
-        const req = mockReq()
+        const req = mockReq(request)
         const res = mockRes()
 
-        const stubHelper = sinon.stub(helper,'getAllProducts').returns(allProducts)
-        const spyHelper = sinon.spy(helper,'findCardProducts')
+        const stubGetProducts = sinon.stub(helper,'getProducts').returns(response)
+        const spyFilterForCards = sinon.spy(helper,'filterForCards')
 
         await cards(req, res)
 
         expect(res.send).to.be.calledWithExactly({
             recordsReturned: 1,
             data: [{ 
-                bank: "Westpac", 
-                name: "Westpac Fake Credit Card product" 
+                bank: "CBA", 
+                name: "CBA Fake Credit Card product",
+                productDetailsUrl:"https://api.commbank.com.au/public/cds-au/v1/banking/products/00000000-abcd-0000-efgh-000000000002"
             }],
         })
 
-        sinon.assert.calledOnce(stubHelper)
-        sinon.assert.calledOnce(spyHelper)
-        sinon.assert.calledWith(spyHelper, allProducts)
+        sinon.assert.calledOnce(stubGetProducts)
+        sinon.assert.calledWith(stubGetProducts, request.params.bank)
+        sinon.assert.calledOnce(spyFilterForCards)
+        sinon.assert.calledWith(spyFilterForCards, response.data.data.products)
         sinon.restore()
     })
 
