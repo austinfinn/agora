@@ -5,9 +5,8 @@ const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
 const nr = require('../../utils/networkRequests/networkRequests')
-const { getAllProducts, filterForCards } = require('./helper')
-const config = require('../../config')
-const { anz, cba, nab, westpac } = config.products.hostNames
+const { getProducts, filterForCards } = require('./helper')
+const utils = require('../../utils/utils')
 
 const allWestpacProducts = [
     {
@@ -33,43 +32,18 @@ const allWestpacProducts = [
     }
 ]
 
-describe('getAllProducts()', () => {
-    it(`should return a single list of products from all 4 banks`, async () => {
-        const allResponses = [
-            {
-                data: { data: { products:[ anzSavings ] } }
-            },{
-                data: { data: { products:[ cbaTermDeposit ] } }
-            },{
-                data: { data: { products:[ nabMortgage] } }
-            },{
-                data: { data: { products:[ westpacCard ] } }
-            }
-        ]
-        const stubPromiseAll = sinon.stub(Promise,'all').resolves(allResponses)
+describe('getProducts()', () => {
+    it(`should return a response from a bank's Products endpoint`, async () => {
+        const bank = "Westpac"
+       
         const stubRequest = sinon.stub(nr,'getRequest')
-        // this returns Promises for each of the 4 network requests
-        stubRequest.onCall(0).resolves()
-        stubRequest.onCall(1).resolves()
-        stubRequest.onCall(2).resolves()
-        stubRequest.onCall(3).resolves()
+        const spyGetProductsUrl = sinon.spy(utils,'getProductsUrl')
         
-        const result = await getAllProducts()
+        await getProducts(bank)
 
-        expect(result).to.deep.equal([
-            anzSavings,
-            cbaTermDeposit,
-            nabMortgage,
-            westpacCard
-        ])
-
-        sinon.assert.callCount(stubRequest, 4)
-        // check the correct URL values are passed to the 'getRequest' function
-        sinon.assert.calledWith(stubRequest.firstCall, `${anz}/cds-au/v1/banking/products`)
-        sinon.assert.calledWith(stubRequest.secondCall, `${cba}/cds-au/v1/banking/products`)
-        sinon.assert.calledWith(stubRequest.thirdCall, `${nab}/cds-au/v1/banking/products`)
-        sinon.assert.calledWith(stubRequest.lastCall, `${westpac}/cds-au/v1/banking/products`)
-        sinon.assert.calledOnce(stubPromiseAll)
+        sinon.assert.calledOnce(spyGetProductsUrl)
+        sinon.assert.calledWith(spyGetProductsUrl, bank)
+        sinon.assert.callCount(stubRequest, 1)
 
         // clean up your tests once finished
         sinon.restore();
