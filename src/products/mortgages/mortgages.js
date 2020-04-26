@@ -1,15 +1,19 @@
-const nr = require('../../utils/networkRequests/networkRequests')
-const mySql = require('../../../data/mysql/mysql')
+const helper = require('../_helper/helper')
+const eh = require('../../utils/errorsHandler/errorsHandler')
 
 async function mortgages(req,res){
-    try {
-        const sqlQuery = `SELECT * FROM accounts`
-        const dbResult = await mySql.executeQuery(sqlQuery)
-        console.log("dbResult...... ", dbResult)
+    const { bank } = req.params
 
-        res.send({message: dbResult})
+    try {
+        const response = await helper.getProducts(bank)
+        const allProducts = response.data.data.products
+
+        const mortgageProducts = helper.filterForMortgages(allProducts)
+
+        res.send(mortgageProducts)
     } catch (error) {
-        console.log(error)
+        const response = eh.errorsHandler(error) 
+        res.status(response.statusCode).send(response.body)
     }
 }
 module.exports = mortgages
