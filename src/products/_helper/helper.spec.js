@@ -9,30 +9,31 @@ const { getAllProducts, findCardProducts } = require('./helper')
 const config = require('../../config')
 const { anz, cba, nab, westpac } = config.products.hostNames
 
-const anzSavings = {
-    brand: "ANZ",
-    name: 'Fake Savings product',
-    productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
-    productId: '00000000-abcd-0000-efgh-000000000001' 
-}
-const cbaTermDeposit = {
-    brand: "CBA",
-    name: 'FAKE 2 year term deposit',
-    productCategory: 'TERM_DEPOSITS',
-    productId: '00000000-abcd-0000-efgh-000000000002' 
-}
-const nabMortgage = {
-    brand: "NAB",
-    name: 'Fake mortgage product',
-    productCategory: 'RESIDENTIAL_MORTGAGES',
-    productId: '00000000-abcd-0000-efgh-000000000003' 
-}
-const westpacCard = {
-    brand: "Westpac",
-    name: 'Fake Card product',
-    productCategory: 'CRED_AND_CHRG_CARDS',
+const allWestpacProducts = [
+    {
+        brand: "Westpac",
+        name: 'Fake Card product',
+        productCategory: 'CRED_AND_CHRG_CARDS',
+        productId: '00000000-abcd-0000-efgh-000000000004' 
     productId: '00000000-abcd-0000-efgh-000000000004' 
-}
+        productId: '00000000-abcd-0000-efgh-000000000004' 
+    },{
+        brand: "Westpac",
+        name: 'Fake mortgage product',
+        productCategory: 'RESIDENTIAL_MORTGAGES',
+        productId: '00000000-abcd-0000-efgh-000000000003' 
+    },{
+        brand: "Westpac",
+        name: 'FAKE 2 year term deposit',
+        productCategory: 'TERM_DEPOSITS',
+        productId: '00000000-abcd-0000-efgh-000000000002' 
+    },{
+        brand: "Westpac",
+        name: 'Fake Savings product',
+        productCategory: 'TRANS_AND_SAVINGS_ACCOUNTS',
+        productId: '00000000-abcd-0000-efgh-000000000001' 
+    }
+]
 
 describe('getAllProducts()', () => {
     it(`should return a single list of products from all 4 banks`, async () => {
