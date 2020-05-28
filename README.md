@@ -1,5 +1,5 @@
 # Overview
-Bring all your data sources together under into a single service. This tool aggregates data from the below locations to simplify the process of creating, finding and managing test data
+Bring all your data sources together into a single service. This tool aggregates data, see below locations, to simplify the process of creating, finding and managing test data
 - Google sheets 
 - MySQL databases 
 - Wiki pages 
