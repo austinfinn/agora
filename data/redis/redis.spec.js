@@ -12,13 +12,9 @@ const checkCache = require('./redis')
 
 describe('Redis: checkCache()', ()=> {
     it(`should return cached data when found in Redis`, function(){
-        const accountStatus = "fakeStatus"
         const redisData = { message:"hello" }
         const request = {
-            params:{
-                accountStatus: accountStatus
-            },
-            path: `/qpc/account/${accountStatus}`,
+            path: `/my/fake/path`,
             app: {
                 locals:{
                     redis: redisClientMock
@@ -43,15 +39,11 @@ describe('Redis: checkCache()', ()=> {
     })
 
     it(`should flush cache when the 'flush' value is set to 'TRUE'`, function(){
-        const accountStatus = "fakeStatus"
         const request = {
-            params:{
-                accountStatus: accountStatus
-            },
             query:{ 
                 flush: "true"
             },
-            path: `/qpc/account/${accountStatus}`,
+            path: `/my/fake/path`,
             app: {
                 locals:{
                     redis: redisClientMock
@@ -76,16 +68,12 @@ describe('Redis: checkCache()', ()=> {
     })
 
     it(`should not flush cache when the 'flush' value is set to something other than 'TRUE'`, function(){
-        const accountStatus = "fakeStatus"
         const redisData = { message:"hello" }
         const request = {
-            params:{
-                accountStatus: accountStatus
-            },
             query:{ 
                 flush: "falsy"
             },
-            path: `/qpc/account/${accountStatus}`,
+            path: `/my/fake/path`,
             app: {
                 locals:{
                     redis: redisClientMock
@@ -110,16 +98,12 @@ describe('Redis: checkCache()', ()=> {
     })
 
     it(`should ignore all query strings except 'flush'`, function(){
-        const accountStatus = "fakeStatus"
         const redisData = { message:"hello" }
         const request = {
-            params:{
-                accountStatus: accountStatus
-            },
             query:{ 
                 flusx: "true"
             },
-            path: `/qpc/account/${accountStatus}`,
+            path: `/my/fake/path`,
             app: {
                 locals:{
                     redis: redisClientMock
@@ -144,12 +128,8 @@ describe('Redis: checkCache()', ()=> {
     })
 
     it(`should return an error if passed one from Redis`, function(){
-        const accountStatus = "fakeStatus"
         const request = {
-            params:{
-                accountStatus: accountStatus
-            },
-            path: `/qpc/account/${accountStatus}`,
+            path: `/my/fake/path`,
             app: {
                 locals:{
                     redis: redisClientMock
