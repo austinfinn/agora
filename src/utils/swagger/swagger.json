@@ -26,7 +26,7 @@
        "https"
    ],
     "paths":{
-        "/v1/products/cards":{
+        "/v1/products/cards/{bank}":{
             "get":{
                 "tags":[
                    "products"
@@ -37,6 +37,24 @@
                 "produces":[
                    "application/json"
                 ],
+                "parameters":[
+                  {
+                     "name":"bank",
+                     "in": "path",
+                     "description": "Select a bank",
+                     "required": true,
+                     "type": "array",
+                     "items": {
+                        "type": "string",
+                        "enum": [
+                           "ANZ",
+                           "CBA",
+                           "NAB",
+                           "WESTPAC"
+                        ]
+                     }
+                  }
+               ],
                 "responses":{
                    "200":{
                       "description":"successful operation" 
