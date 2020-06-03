@@ -10,7 +10,6 @@ module.exports = {
             currentAndSavings:"TRANS_AND_SAVINGS_ACCOUNTS",
             cards:"CRED_AND_CHRG_CARDS",
             loans:"PERS_LOANS",
-            mortgages:"RESIDENTIAL_MORTGAGES",
             fixedSavings:"TERM_DEPOSITS"
         }
     },

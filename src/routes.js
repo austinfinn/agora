@@ -9,7 +9,6 @@ const checkCache = require('../data/redis/redis')
 router.use(bodyParser.json());
 
 // products
-router.get('/v1/products/mortgages/:bank', require("./products/mortgages/mortgages"))
 router.get('/v1/products/cards/:bank', require("./products/cards/cards"))
 
 // users
