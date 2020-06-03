@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "mocha --slow 25 --exit \"./{,!(node_modules)/**/}*.spec.js\"",
+    "test": "mocha --slow 25 --exit \"./{,!(node_modules)/**/}*.test.js\"",
     "coverage": "nyc --check-coverage npm run test"
   },
   "husky": {
