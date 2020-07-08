@@ -1,10 +1,7 @@
 # Overview
-Bring all your data sources together into a single service. This tool aggregates data, see below locations, to simplify the process of creating, finding and managing test data
-- Google sheets 
-- MySQL databases 
-- Wiki pages 
-- existing API endpoints 
+Agora is a simple, but powerful, data aggregation service
 
+It's a simple tool that unlocks all your data sources to simplify creating, finding and managing test data. Bring your Google sheets, MySQL/Postgres databases, Wiki pages and existing API endpoints together in different combinations to create a bespoke service will remove your data bottlenecks. Redis provides a caching layer and a single Swagger page makes it simple for everybody on your Product team to make network requests.
 
 # Prerequisites
 - Ensure you have the below tools installed on your machine 
