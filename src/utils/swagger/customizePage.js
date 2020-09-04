@@ -6,6 +6,8 @@ function customizePage(req, res, next) {
     swaggerDocument.info.version = appPackage.version
     swaggerDocument.host = `localhost:${process.env.PORT}`
 
+    console.log(" swaggerDocument.host: ", swaggerDocument.host)
+
     req.swaggerDoc = swaggerDocument;
     next();
 }
