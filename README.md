@@ -14,10 +14,6 @@ It's a simple tool that unlocks all your data sources to simplify creating, find
 
         docker ps
 
-- Now build the app (this may take a few minutes)
-
-        docker-compose build
-
 - Start up the application
 
         docker-compose up
