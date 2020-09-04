@@ -1,7 +1,10 @@
-USE agora_db;
+USE drivdmh4wkbg0mlr;
 
 CREATE USER 'agora_user_1'@'%' IDENTIFIED BY 'pass1234';
 GRANT INSERT, SELECT ON *.* TO 'agora_user_1'@'%';
+
+CREATE USER 'qcltlj7uof1b2xp8'@'%' IDENTIFIED BY 'j06md60bhr60kqyz';
+GRANT INSERT, SELECT ON *.* TO 'qcltlj7uof1b2xp8'@'%';
 
 CREATE TABLE accounts(
    account_id INT NOT NULL AUTO_INCREMENT,
