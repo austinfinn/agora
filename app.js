@@ -6,6 +6,7 @@ require('dotenv').config()
 const routes = require('./src/routes')
 app.use(routes)
 
+console.log(" Starting port is: ", port)
 app.use(`/public`, express.static('public'))
 
 const connectToRedis = () => {
