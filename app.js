@@ -26,8 +26,10 @@ connectToRedis().then((client) => {
     app.locals.redis = client;
     // set port
     app.listen(port, function () {
+        console.log("Port from app.listen(): ", port)
         if (process.env.PORT) {
             port = process.env.PORT
+            console.log("Set the port if it is not set: ", port)
         }
         
         console.log("")
