@@ -11,10 +11,12 @@ async function loginCredentials(req,res){
 
     try {
         const sqlQuery = sql.selectEmailAndUserId()
+        console.log("sqlQuery ----> ", sqlQuery)
         const dbUsers = await mySql.executeQuery(sqlQuery)
+        console.log("dbUsers ------> ", dbUsers)
 
         const loginCredentials = await helper.getCredentials(dbUsers)
-
+        console.log("loginCredentials ------> ", loginCredentials)
         // save response details to Redis
         redisClient.setex(key, cacheExpirationTime, JSON.stringify(loginCredentials))
 
