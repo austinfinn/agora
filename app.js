@@ -26,13 +26,6 @@ connectToRedis().then((client) => {
     app.locals.redis = client;
     // set port
     app.listen(port, function () {
-        console.log("Port from app.listen(): ", port)
-        console.log("process.env.PORT is: ", process.env.PORT)
-        // if (process.env.PORT) {
-        //     port = process.env.PORT
-        //     console.log("Set the port if it is not set: ", port)
-        // }
-        
         console.log("")
         console.log(`Agora app running on http://localhost:${port}`)
         console.log(`Redis is running on ${process.env.REDIS_HOST}`)
