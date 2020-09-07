@@ -9,6 +9,12 @@ app.use(routes)
 console.log(" Starting port is: ", port)
 app.use(`/public`, express.static('public'))
 
+// set a global variable to indicate the application is running locally
+global.localDevelopment = process.env.LOCAL_DEVELOPMENT
+if (global.localDevelopment) {
+    global.localhost = `http://localhost:${port}`
+}
+
 const connectToRedis = () => {
     const client = redis.createClient(process.env.REDIS_HOST)
 
