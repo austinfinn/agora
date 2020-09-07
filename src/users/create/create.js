@@ -11,13 +11,11 @@ async function create(req,res){
         if (email){
             // insert the new user into the db
             let sqlQuery = sql.insertUser(email, dateOfBirth)
-            const result = await mySql.executeQuery(sqlQuery)
-            console.log(" result ------> ", result)
+            await mySql.executeQuery(sqlQuery)
 
             // get the 'user_id' for the newly create user
             sqlQuery = sql.selectUserIdByEmail(email)
             const dbResult = await mySql.executeQuery(sqlQuery)
-            console.log("dbResult ----> ", dbResult)
             const { userId } = dbResult[0]
 
             // save important login details for test accounts to the Google Sheets doc

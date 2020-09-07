@@ -3,9 +3,7 @@ function errorsHandler(err){
         return databaseErrorHandler(err)
     } else if(err.response.status){
         return networkErrorHandler(err)
-    } else {
-        console.log("Generic Error: ------ ", err)
-    }
+    } 
 }
 
 function networkErrorHandler(err){
