@@ -25,4 +25,12 @@ function getProductsUrl(bank) {
     return url
 }
 
-module.exports = { getProductsUrl }
+function getMinimumSupportedVersion(url){
+    if(url.includes('anz')){
+        return '2'
+    } else {
+        return '1'
+    }
+}
+
+module.exports = { getProductsUrl, getMinimumSupportedVersion }

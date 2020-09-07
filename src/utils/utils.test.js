@@ -44,3 +44,21 @@ describe('getProductsUrl()', () => {
         done()
     })
 })
+
+describe('getMinimumSupportedVersion()', () => {
+    it(`should return the minimum supported version for the 'x-v' header for ANZ`, () => {
+        const url = 'https://bank.anz.com'
+
+        const result = utils.getMinimumSupportedVersion(url)
+
+        expect(result).to.equal('2')
+    })
+
+    it(`should return the minimum supported version for the 'x-v' header for all other banks except ANZ`, () => {
+        const url = 'https://bank.westpac.com'
+
+        const result = utils.getMinimumSupportedVersion(url)
+
+        expect(result).to.equal('1')
+    })
+})

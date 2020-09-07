@@ -1,9 +1,10 @@
 const axios = require('axios')
+const utils = require('../utils')
 
 async function getRequest(url) {
     const options = {
         headers: { 
-            'x-v': '1' 
+            'x-v': utils.getMinimumSupportedVersion(url) 
         }
     }
     return await axios.get(url,options)
