@@ -11,6 +11,7 @@ const dbConn = mysql.createPool({
 });
 
 dbConn.getConnection((err, connection) => {
+    console.log("The error from the MySQL module is ------> ", err)
     if (err) {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
             console.error('Database connection was closed.')
