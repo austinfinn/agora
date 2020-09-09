@@ -1,6 +1,10 @@
 const google = require('google-spreadsheet');
 
 async function connect() {
+    console.log("GOOGLE_SHEET_ID              : ",process.env.GOOGLE_SHEET_ID)
+    console.log("GOOGLE_SERVICE_ACCOUNT_EMAIL : ",process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
+    console.log("GOOGLE_PRIVATE_KEY           : ",process.env.GOOGLE_PRIVATE_KEY)
+    
     const doc = new google.GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID)
 
     // use service account credentials
