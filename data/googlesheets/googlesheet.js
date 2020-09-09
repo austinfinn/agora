@@ -6,6 +6,7 @@ async function connect() {
     console.log("GOOGLE_PRIVATE_KEY           : ",process.env.GOOGLE_PRIVATE_KEY)
     
     const doc = new google.GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID)
+    console.log("The doc value is            : ", doc)
 
     // use service account credentials
     await doc.useServiceAccountAuth({
