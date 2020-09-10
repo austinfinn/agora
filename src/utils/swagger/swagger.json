@@ -32,7 +32,7 @@
                    "products"
                 ],
                 "summary":"Returns a list of available card products",
-                "description":"Returns a list of available card products for the Big 4 banks in Australia",
+                "description":"Returns a list of available card products for Australia's Big 4 banks. \n\n **Technical Details:** This endpoint uses the Open Banking APIs to makes a HTTP call to a specific bank to return a list of available card accounts",
                 "operationId":"cards",
                 "produces":[
                    "application/json"
@@ -67,8 +67,8 @@
                 "tags":[
                    "users"
                 ],
-                "summary":"Create a new user and save important/sensitive user details to a Google Sheets doc",
-                "description":"Saves password and mother's maiden name for newly created users to a Google Sheets doc. \n\n Technical Details: This inserts a new record to the db, then gets the user id for the new user and then saves that, along with the password and mother's maiden name to the Google Docs spreadsheet.",
+                "summary":"Create a new user and save important/sensitive user details to a Google Sheet",
+                "description":"Saves password and mother's maiden name for newly created users to a Google Sheets doc. \n\n **Technical Details:** This endpoint inserts a new record to a mySQL table, then pulls out the user id for that newly create user and finally saves user's ID, along with the password and mother's maiden name to [this Google Sheet](https://docs.google.com/spreadsheets/d/1p7QVbO-6HqKntbTCjH43o3DQx7EBiXKE1zDSpm5DbZ8/edit?ts=5e96547e#gid=0).",
                 "operationId":"create",
                 "produces":[
                    "application/json"
@@ -101,7 +101,7 @@
                    "users"
                 ],
                 "summary":"Returns a list of login credentails for test accounts",
-                "description":"Returns a list of emails and passwords for all test accounts",
+                "description":"Returns a list of emails and passwords for all test accounts. \n\n **Technical Details:** This endpoint queries all records in the 'users' DB table, then queries the [Google Sheet](https://docs.google.com/spreadsheets/d/1p7QVbO-6HqKntbTCjH43o3DQx7EBiXKE1zDSpm5DbZ8/edit?ts=5e96547e#gid=0) for those users and finally returns login credentials for matching users found in both places. Just returning the result to the Swagger, the JSON response is stored in Redis (currently for 30 seconds). If you hit this endpoint before the 30 seconds expires, you will be served the cached respnonse from Redis",
                 "operationId":"loginCredentials",
                 "produces":[
                    "application/json"
@@ -136,7 +136,7 @@
                      "health"
                   ],
                   "summary":"Check the status of a specific OpenBanking API endpoint",
-                  "description":"Check if the products list endpoint for all a banks is 'up' or 'down'",
+                  "description":"Check if the products list endpoint for a banks is currently available. \n\n **Technical Details:** This endpoint uses the Open Banking APIs to makes a HTTP call to a specific bank and, based on the Response status code, determines if the Bank's Open Banking APIs are currenlty available",
                   "operationId":"openBankingApi",
                   "produces":[
                      "application/json"
