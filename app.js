@@ -11,7 +11,7 @@ app.use(`/public`, express.static('public'))
 // set a global variable to indicate the application is running locally
 global.localDevelopment = process.env.LOCAL_DEVELOPMENT
 if (global.localDevelopment) {
-    global.localhost = `http://localhost:${port}`
+    global.localhost = `http://localhost:${process.env.PORT}`
 }
 
 const connectToRedis = () => {
