@@ -3,7 +3,9 @@ const redis = require('redis')
 const app = express()
 require('dotenv').config()
 
-let port = 4001 || process.env.PORT
+let port = 4001
+console.log("proces.env.PORT 00 ", process.env.PORT)
+console.log("           port 00 ", port)
 
 const routes = require('./src/routes')
 app.use(routes)
@@ -32,12 +34,12 @@ connectToRedis().then((client) => {
     app.locals.redis = client;
     // set port
     app.listen(port, function () {
-        console.log("process.env.PORT ", process.env.PORT)
-        console.log("            port ", port)
+        console.log("proces.env.PORT 0 ", process.env.PORT)
+        console.log("            port 0 ", port)
         if (process.env.PORT) {
             port = process.env.PORT
-            console.log("process.env.PORT ", process.env.PORT)
-            console.log("            port ", port)
+            console.log("process.env.PORT 1 ", process.env.PORT)
+            console.log("            port 1 ", port)
         }
 
         console.log("")
