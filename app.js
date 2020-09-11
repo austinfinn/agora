@@ -14,6 +14,13 @@ if (global.localDevelopment) {
     global.localhost = `http://localhost:${port}`
 }
 
+console.log(" The port is ", port)
+console.log(" global.localDevelopment ", global.localDevelopment)
+console.log(" GOOGLE_SERVICE_ACCOUNT_EMAIL : ", process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
+console.log(" GOOGLE_PRIVATE_KEY           : ", process.env.GOOGLE_PRIVATE_KEY)
+console.log(" GOOGLE_SHEET_ID              : ", process.env.GOOGLE_SHEET_ID)
+console.log(" ")
+
 const connectToRedis = () => {
     const client = redis.createClient(process.env.REDIS_HOST)
 
@@ -32,7 +39,7 @@ connectToRedis().then((client) => {
     // set port
     app.listen(port, function () {
         console.log("")
-        console.log(`Agora app running on http://localhost:${port}`)
+        console.log(`Agora app running on http://localhost:${port}/v1/docs/`)
         console.log(`Redis is running on ${process.env.REDIS_HOST}`)
         console.log("")
     });

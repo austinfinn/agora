@@ -6,10 +6,11 @@ async function cards(req,res){
 
     try {
         const response = await helper.getProducts(bank)
+        console.log("response 0 " )
         const allProducts = response.data.data.products
-
+        console.log("allProducts 0 " )
         const cardProducts = helper.filterForCards(allProducts)
-
+        console.log("cardProducts 0 " )
         res.send(cardProducts)
     } catch (error) {
         const response = eh.errorsHandler(error) 
