@@ -1,7 +1,7 @@
 const express = require('express')
 const redis = require('redis')
 const app = express()
-let port = process.env.PORT || 4001
+let port = 4001
 require('dotenv').config()
 const routes = require('./src/routes')
 app.use(routes)
@@ -31,6 +31,10 @@ connectToRedis().then((client) => {
     app.locals.redis = client;
     // set port
     app.listen(port, function () {
+        if (process.env.PORT) {
+            port = process.env.PORT
+        }
+
         console.log("")
         console.log(`Agora app running on http://localhost:${port}`)
         console.log(`Redis is running on ${process.env.REDIS_HOST}`)
