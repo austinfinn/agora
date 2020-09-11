@@ -1,11 +1,12 @@
 const express = require('express')
 const redis = require('redis')
 const app = express()
-let port = 4001
 require('dotenv').config()
+
+let port = 4001 || process.env.PORT
+
 const routes = require('./src/routes')
 app.use(routes)
-
 app.use(`/public`, express.static('public'))
 
 // set a global variable to indicate the application is running locally
