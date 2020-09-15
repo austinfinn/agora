@@ -11,11 +11,15 @@ services:
       - cache
     environment:
       - PORT=4002
+      - LOCAL_DEVELOPMENT=true
       - REDIS_HOST=redis://cache:6379
       - DB_HOST=db
       - DB_DATABASE=agora_db
       - DB_USER=agora_user_1
       - DB_PASSWORD=pass1234
+      - GOOGLE_SERVICE_ACCOUNT_EMAIL=
+      - GOOGLE_SHEET_ID=
+      - GOOGLE_PRIVATE_KEY=
       # wait until the MySQL db is ready before attempting to connect the Express app to it
       - WAIT_HOSTS=db:3306
   db:
