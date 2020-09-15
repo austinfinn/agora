@@ -2,20 +2,26 @@ const express = require('express')
 const redis = require('redis')
 const app = express()
 require('dotenv').config()
+let port = ""
+console.log("Port is ", port)
 
-let port = 4001
-console.log("proces.env.PORT 00 ", process.env.PORT)
-console.log("           port 00 ", port)
+// set a variable to indicate the application is running locally or on Docker
+global.localDevelopment = process.env.LOCAL_DEVELOPMENT
+
+if (global.localDevelopment) {
+    // hard code port so application runs locally or on Docker
+    port = 4001
+    console.log("Port is set locally ", port)
+    global.localhost = `http://localhost:${process.env.PORT}`
+} else {
+    // set the port dynamically so application runs on Heroku
+    port = process.env.PORT
+    console.log("Port is dynamically ", port)
+}
 
 const routes = require('./src/routes')
 app.use(routes)
 app.use(`/public`, express.static('public'))
-
-// set a global variable to indicate the application is running locally
-global.localDevelopment = process.env.LOCAL_DEVELOPMENT
-if (global.localDevelopment) {
-    global.localhost = `http://localhost:${process.env.PORT}`
-}
 
 const connectToRedis = () => {
     const client = redis.createClient(process.env.REDIS_HOST)
