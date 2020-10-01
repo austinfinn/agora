@@ -1,7 +1,7 @@
 const expect  = require('chai').expect;
 const { errorsHandler } = require('./errorsHandler')
 
-describe('errorsHandler() - network request errors', function(){
+describe('errorsHandler() - Handle network request errors', function(){
     it('should return a generic network request error', function(done){
         const err = {
             response:{
@@ -61,7 +61,7 @@ describe('errorsHandler() - network request errors', function(){
     })
 })
 
-describe('errorsHandler() - database errors', function(){
+describe('errorsHandler() - Handle database errors', function(){
     it('should return a generic db error', function(done){
         const err = {
             code: 'FAKE_ERROR_CODE',
