@@ -18,9 +18,9 @@ function networkErrorHandler(err){
 function databaseErrorHandler(err){
     if(err.code == "ER_ACCESS_DENIED_ERROR"){
         // this is an example of how you could handle specific db errors
-        return databaseErrorResponseFormatter(500 ,"Looks like the database credentials are incorrect.")
+        return genericErrorResponseFormatter(500 ,"Looks like the database credentials are incorrect.")
     } else {
-        return databaseErrorResponseFormatter(500 ,"An unhandled error occured. Feel free to create a PR to fix it!")
+        return genericErrorResponseFormatter(500 ,"An unhandled error occured. Feel free to create a PR to fix it!")
     }
 }
 
@@ -40,7 +40,7 @@ function networkErrorResponseFormatter(err, customStatus, customMessage){
     }
 }
 
-function databaseErrorResponseFormatter(customStatus, customMessage) {
+function genericErrorResponseFormatter(customStatus, customMessage) {
     return {
         statusCode: customStatus,
         body: {
