@@ -94,3 +94,20 @@ describe('errorsHandler() - database errors', function(){
         done()
     })
 })
+
+describe('errorsHandler() - Handle non-database or non-network errors', function(){
+    it('should return a generic error', function(done){
+        const err = {
+            fakeMessage: 'this is a fake error to test the else clause'
+        }
+
+        const result = errorsHandler(err)
+        expect(result).to.deep.equal({
+            statusCode: 500,
+            body:{
+                message:"A non-database and non-network related error occured. Feel free to create a PR to fix it!"
+            }
+        })
+        done()
+    })
+})

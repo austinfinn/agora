@@ -1,9 +1,11 @@
 function errorsHandler(err){
     if (err.sqlMessage){
         return databaseErrorHandler(err)
-    } else if(err.response.status){
+    } else if(err.response && err.response.status){
         return networkErrorHandler(err)
-    } 
+    } else {
+        return genericErrorResponseFormatter(500, "A non-database and non-network related error occured. Feel free to create a PR to fix it!")
+    }
 }
 
 function networkErrorHandler(err){
